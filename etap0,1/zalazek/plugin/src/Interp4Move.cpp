@@ -73,10 +73,10 @@ bool Interp4Move::ExecCmd( AbstractScene      &rScn,
  */
 bool Interp4Move::ReadParams(std::istream& Strm_CmdsList)
 {
-  /*
-   *  Tu trzeba napisać odpowiedni kod.
-   */
-  return true;
+  std::string ObjName; // Zmienna na nazwę obiektu, na razie jej nie używamy
+  Strm_CmdsList >> ObjName >> _Speed_mmS >> _Distance_mm;
+  // Zwróć true, jeśli wczytywanie się powiodło (strumień nie jest w stanie błędu)
+  return !Strm_CmdsList.fail();
 }
 
 

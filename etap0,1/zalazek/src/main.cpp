@@ -1,65 +1,59 @@
 #include <iostream>
-#include <dlfcn.h>
-#include <cassert>
-#include "AbstractInterp4Command.hh"
+#include <sstream>
+#include "LibInterface.hh"
+#include "preprocessor.hh"
 
 using namespace std;
 
-
 int main()
 {
-  void *pLibHnd_Move = dlopen("libInterp4Move.so",RTLD_LAZY);
-  AbstractInterp4Command *(*pCreateCmd_Move)(void);
-  void *pFunMove;
+    // --- Krok 1: Przetwarzanie pliku przez preprocesor ---
+    string processed_content = PreprocessFile("polecenia.txt");
+    stringstream CmdStream(processed_content); // Tworzymy strumień ze stringa
 
-  if (!pLibHnd_Move) {
-    cerr << "!!! Brak biblioteki: Interp4Move.so" << endl;
-    return 1;
-  }
-
-  pFunMove = dlsym(pLibHnd_Move,"CreateCmd");
-  if (!pFunMove) {
-    cerr << "!!! Nie znaleziono funkcji CreateCmd" << endl;
-    return 1;
-  }
-  pCreateCmd_Move = reinterpret_cast<AbstractInterp4Command* (*)(void)>(pFunMove);
-
-  AbstractInterp4Command *pCmd_Move = pCreateCmd_Move();
-  /////// Rotate ------------------
-
-  void *pLibHnd_Rotate = dlopen("libInterp4Rotate.so",RTLD_LAZY);
-  AbstractInterp4Command *(*pCreateCmd_Rotate)(void);
-  void *pFunRotate;
+    cout << "--- Plik po przetworzeniu przez preprocesor ---" << endl;
+    cout << processed_content << endl;
+    cout << "---------------------------------------------\n" << endl;
 
 
-  pFunRotate = dlsym(pLibHnd_Rotate,"CreateCmd");
-  if (!pFunRotate) {
-    cerr << "!!! Nie znaleziono funkcji CreateCmd" << endl;
-    return 1;
-  }
-  pCreateCmd_Rotate = reinterpret_cast<AbstractInterp4Command* (*)(void)>(pFunRotate);
+    // --- Krok 2: Przygotowanie interfejsów do wtyczek ---
+    LibInterface MoveInterface("libs/libInterp4Move.so");
+    LibInterface RotateInterface("libs/libInterp4Rotate.so");
+    // W przyszłości tutaj będą też interfejsy dla Set i Pause
 
-  AbstractInterp4Command *pCmd_Rotate = pCreateCmd_Rotate();
+    
+    // --- Krok 3: Główna pętla interpretera ---
+    cout << "--- Rozpoczynam interpretacje polecen ---" << endl;
+    string CmdName;
+    AbstractInterp4Command* pCmd = nullptr;
 
-  cout << endl;
-  cout << pCmd_Move->GetCmdName() << endl;
-  cout << endl;
-  pCmd_Move->PrintSyntax();
-  cout << endl;
-  pCmd_Move->PrintCmd();
-  cout << endl;
+    while (CmdStream >> CmdName) { // Czytaj słowo po słowie, dopóki są słowa
+        
+        if (CmdName == "Move") {
+            pCmd = MoveInterface.CreateCmd();
+        } else if (CmdName == "Rotate") {
+            pCmd = RotateInterface.CreateCmd();
+        } else {
+            // Obsługa nieznanych poleceń
+            cout << "Nieznane polecenie: " << CmdName << endl;
+            // Wczytaj resztę linii, żeby przeskoczyć parametry
+            string dummy;
+            getline(CmdStream, dummy); 
+            continue; // Przejdź do następnej iteracji pętli
+        }
 
-  cout << endl;
-  cout << pCmd_Rotate->GetCmdName() << endl;
-  cout << endl;
-  pCmd_Rotate->PrintSyntax();
-  cout << endl;
-  pCmd_Rotate->PrintCmd();
-  cout << endl;
-  
-  delete pCmd_Move;
-  delete pCmd_Rotate;
-
-  dlclose(pLibHnd_Move);
-  dlclose(pLibHnd_Rotate);
+        if (pCmd) {
+            if (pCmd->ReadParams(CmdStream)) {
+                cout << "Wczytano polecenie: ";
+                pCmd->PrintCmd();
+                cout << endl;
+            } else {
+                cout << "Błąd wczytywania parametrów dla polecenia: " << CmdName << endl;
+            }
+            delete pCmd; // Zwolnij pamięć po obiekcie polecenia
+        }
+    }
+    cout << "--- Koniec interpretacji ---" << endl;
+    
+    return 0;
 }
