@@ -14,7 +14,7 @@ __lines_for_space__:
 
 
 __plugin__:
-	(cd plugin; make) && (cd plugin_rotate; make)
+	(cd plugin; make) && (cd plugin_rotate; make) && (cd plugin_set; make) && (cd plugin_pause; make)
 
 CPPFLAGS=-Wall -pedantic -std=c++17 -Iinc
 LDFLAGS=-Wall

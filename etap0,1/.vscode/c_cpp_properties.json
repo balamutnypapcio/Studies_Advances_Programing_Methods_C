@@ -7,7 +7,8 @@
                 "${workspaceFolder}/inc",
                 "${workspaceFolder}/plugin/inc",
                 "${workspaceFolder}/plugin_rotate/inc",
-                "${workspaceFolder}/zalazek/plugin_rotate/inc"
+                "${workspaceFolder}/zalazek/plugin_rotate/inc",
+                "${workspaceFolder}/zalazek/plugin_pause/inc"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang-14",

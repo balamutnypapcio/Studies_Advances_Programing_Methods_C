@@ -1,5 +1,7 @@
 #include <iostream>
 #include <sstream>
+#include <string>
+#include <map>
 #include "LibInterface.hh"
 #include "preprocessor.hh"
 
@@ -9,51 +11,64 @@ int main()
 {
     // --- Krok 1: Przetwarzanie pliku przez preprocesor ---
     string processed_content = PreprocessFile("polecenia.txt");
-    stringstream CmdStream(processed_content); // Tworzymy strumień ze stringa
+    if (processed_content.empty()) {
+        cout << "Plik polecen jest pusty lub wystapil blad preprocesora." << endl;
+        return 1;
+    }
+    stringstream CmdStream(processed_content);
 
     cout << "--- Plik po przetworzeniu przez preprocesor ---" << endl;
     cout << processed_content << endl;
     cout << "---------------------------------------------\n" << endl;
 
-
-    // --- Krok 2: Przygotowanie interfejsów do wtyczek ---
-    LibInterface MoveInterface("libs/libInterp4Move.so");
-    LibInterface RotateInterface("libs/libInterp4Rotate.so");
-    // W przyszłości tutaj będą też interfejsy dla Set i Pause
+    // --- Krok 2: Mapa wtyczek (z surowymi wskaźnikami dla bezpieczeństwa) ---
+    map<string, LibInterface*> Plugins;
+    Plugins["Move"]   = new LibInterface("libs/libInterp4Move.so");
+    Plugins["Rotate"] = new LibInterface("libs/libInterp4Rotate.so");
+    Plugins["Set"]    = new LibInterface("libs/libInterp4Set.so");
+    Plugins["Pause"]  = new LibInterface("libs/libInterp4Pause.so");
 
     
     // --- Krok 3: Główna pętla interpretera ---
     cout << "--- Rozpoczynam interpretacje polecen ---" << endl;
     string CmdName;
-    AbstractInterp4Command* pCmd = nullptr;
 
-    while (CmdStream >> CmdName) { // Czytaj słowo po słowie, dopóki są słowa
+    while (CmdStream >> CmdName) {
         
-        if (CmdName == "Move") {
-            pCmd = MoveInterface.CreateCmd();
-        } else if (CmdName == "Rotate") {
-            pCmd = RotateInterface.CreateCmd();
-        } else {
-            // Obsługa nieznanych poleceń
-            cout << "Nieznane polecenie: " << CmdName << endl;
-            // Wczytaj resztę linii, żeby przeskoczyć parametry
-            string dummy;
-            getline(CmdStream, dummy); 
-            continue; // Przejdź do następnej iteracji pętli
-        }
+        auto it = Plugins.find(CmdName); // Wyszukaj polecenie w mapie
 
-        if (pCmd) {
-            if (pCmd->ReadParams(CmdStream)) {
-                cout << "Wczytano polecenie: ";
-                pCmd->PrintCmd();
-                cout << endl;
-            } else {
-                cout << "Błąd wczytywania parametrów dla polecenia: " << CmdName << endl;
+        if (it != Plugins.end() && it->second->IsValid()) {
+            // Znaleziono wtyczkę i jest ona poprawna
+            AbstractInterp4Command* pCmd = it->second->CreateCmd();
+            if (pCmd) {
+                if (pCmd->ReadParams(CmdStream)) {
+                    cout << "Wczytano polecenie: ";
+                    pCmd->PrintCmd();
+                    cout << endl;
+                } else {
+                    cout << "Błąd wczytywania parametrów dla polecenia: " << CmdName << endl;
+                    delete pCmd;    // Ważne: zwolnij pamięć nawet w razie błędu
+                    break;       // Przerwij pętlę, bo strumień jest uszkodzony
+                }
+                delete pCmd; // Zwolnij pamięć po obiekcie polecenia
             }
-            delete pCmd; // Zwolnij pamięć po obiekcie polecenia
+        } else {
+            // Nie znaleziono wtyczki w mapie, lub była niepoprawnie załadowana
+            cout << "Pominięto nieznane/niepoprawne polecenie: " << CmdName << endl;
+            // "Zjedz" resztę linii, aby zsynchronizować strumień.
+            // getline czyta do znaku nowej linii, którego w stringstream nie ma,
+            // więc przeczyta wszystko do końca. W tej pętli to zachowanie jest akurat pożądane.
+            string dummy;
+            getline(CmdStream, dummy);
         }
     }
-    cout << "--- Koniec interpretacji ---" << endl;
     
+    cout << "--- Koniec interpretacji ---" << endl;
+
+    // --- Krok 4: Ręczne i bezpieczne zwolnienie zasobów ---
+    for (auto& pair : Plugins) {
+        delete pair.second; // To wywoła destruktor ~LibInterface(), który zrobi dlclose()
+    }
+
     return 0;
 }
