@@ -17,13 +17,13 @@ __plugin__:
 	(cd plugin; make) && (cd plugin_rotate; make) && (cd plugin_set; make) && (cd plugin_pause; make)
 
 CPPFLAGS=-Wall -pedantic -std=c++17 -Iinc
-LDFLAGS=-Wall
+LDFLAGS=-Wall -lxerces-c
 
 
 
 
-interp: obj/main.o obj/LibInterface.o obj/preprocessor.o
-	g++ ${LDFLAGS} -o interp  obj/main.o obj/LibInterface.o obj/preprocessor.o -ldl
+interp: obj/main.o obj/LibInterface.o obj/preprocessor.o obj/xmlinterp.o
+	g++ -o interp  obj/main.o obj/LibInterface.o obj/preprocessor.o obj/xmlinterp.o ${LDFLAGS} -ldl
 
 
 obj/LibInterface.o: src/LibInterface.cpp inc/LibInterface.hh
@@ -32,9 +32,13 @@ obj/LibInterface.o: src/LibInterface.cpp inc/LibInterface.hh
 obj/preprocessor.o: src/preprocessor.cpp inc/preprocessor.hh
 	g++ -c ${CPPFLAGS} -o obj/preprocessor.o src/preprocessor.cpp
 
+obj/xmlinterp.o: src/xmlinterp.cpp inc/xmlinterp.hh inc/Configuration.hh
+	g++ -c ${CPPFLAGS} -o obj/xmlinterp.o src/xmlinterp.cpp
+
 obj/main.o: src/main.cpp inc/AbstractInterp4Command.hh inc/AbstractScene.hh\
-            inc/AbstractComChannel.hh
+            inc/AbstractComChannel.hh inc/xmlinterp.hh inc/Configuration.hh
 	g++ -c ${CPPFLAGS} -o obj/main.o src/main.cpp
+
 
 doc:
 	cd dox; make
@@ -69,4 +73,3 @@ help:
 	@echo "  make           # kompilacja i uruchomienie programu."
 	@echo "  make clean     # usuwa produkty kompilacji."
 	@echo
- 

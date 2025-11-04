@@ -7,6 +7,7 @@
 
 class LibInterface {
     void*       _LibHandler;   // Uchwyt do biblioteki (z dlopen)
+    std::string _CmdName;      // Nazwa polecenia
     AbstractInterp4Command* (*_pCreateCmd)(void); // Wskaźnik na funkcję CreateCmd
 
 public:
@@ -21,6 +22,8 @@ public:
     
     // Sprawdza, czy wtyczka została poprawnie załadowana
     bool IsValid() const { return _pCreateCmd != nullptr; }
+
+    const std::string& GetCmdName() const { return _CmdName; }
 };
 
 #endif

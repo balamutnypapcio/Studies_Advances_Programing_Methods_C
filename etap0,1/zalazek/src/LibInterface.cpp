@@ -10,6 +10,19 @@ LibInterface::LibInterface(const char* sLibFileName) {
         return;
     }
 
+
+    void* pFunGetName = dlsym(_LibHandler, "GetCmdName");
+    if (!pFunGetName) {
+        std::cerr << "!!! Nie znaleziono funkcji GetCmdName w " << sLibFileName << std::endl;
+        _pCreateCmd = nullptr;
+        dlclose(_LibHandler);
+        _LibHandler = nullptr;
+        return;
+    }
+    const char* (*pGetCmdName)() = reinterpret_cast<const char* (*)()>(pFunGetName);
+    _CmdName = pGetCmdName();
+
+
     void* pFun = dlsym(_LibHandler, "CreateCmd");
     if (!pFun) {
         std::cerr << "!!! Nie znaleziono funkcji CreateCmd w " << sLibFileName << std::endl;
