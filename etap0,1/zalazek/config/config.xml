@@ -3,6 +3,7 @@
       <Lib Name="libInter4Move.so"/>
       <Lib Name="libInter4Rotate.so"/>
       <Lib Name="libInter4Pause.so"/>
+      <Lib Name="libInter4Set.so"/>
    </Plugins>
    <Objects>
      <Cube Name="Podstawa" Shift="0 -0.5 0" Scale="0.7 0.7 0.2"

@@ -23,6 +23,8 @@ class Configuration {
     
 public:
 
+    bool LoadFromFile(const std::string& sFileName);
+
     void AddPluginLib(const std::string& lib_name) {
         _PluginsLibs.push_back(lib_name);
     }

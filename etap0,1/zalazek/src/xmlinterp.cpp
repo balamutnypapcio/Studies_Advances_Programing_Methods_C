@@ -288,3 +288,7 @@ void XMLInterp4Config::warning(const xercesc::SAXParseException&  rException)
    * jest tylko "atrapą".
    */
 }
+
+
+
+
