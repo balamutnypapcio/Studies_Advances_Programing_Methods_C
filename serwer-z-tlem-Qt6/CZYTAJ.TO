@@ -1,0 +1,42 @@
+Niniejsze oprogramowanie dostępne jest na licencji GNU-GPL.
+Zostało ono przygotowane do tego, aby współpracować z wersją Qt5 i Qt6.
+Jednak dołączony pakiet libQGLViewer poprawnie instaluje się tylko z Qt6.
+
+Ponadto wymagne jest zainstalowanie dodatkowych pakietów, o ile
+nie były wcześniej już zainstalowane.
+Należy do nich biblioteka:
+
+ -  SOIL (pakiety: libsoil-dev, libsoil1)
+oraz pakiet:
+  - libglu1-mesa-dev oraz pakiety, od których jest on zależny.
+   Wykorzystują program graficzny synaptic, po zaznaczeniu wspomnianego
+   pakietu, te pakiety, od których jest zależny, zostaną zaznaczone
+   automatycznie.
+
+Ponadto w niniejszym pakiecie wykorzystana jest biblioteka libQGLViewer.
+Dostępna jest ona w repozytorium:
+  https://github.com/GillesDebunne/libQGLViewer
+Dla wygody źródła biblioteki zostały umieszczone w niniejszym pakiecie
+(data pobranie 11.11.2024). Kompilacja biblioteki została zintegrowana
+z kompilacją źródeł samego serwera.
+
+Chcąc skompilować, a później uruchomić program, wystarczy wykonać polecenie:
+  make
+W trakcie pierwszego użycia, kompilacja i konsolidacja zajmie kilka minut.
+
+Przed kompilacją pakiet zajmuje ok. 8.1MB.
+Po wykonaniu tej operacji całość zajmuje ok. 15MB.
+
+Polecenie:
+  make clean
+spowoduje susuniecie jedynie produktow kompilacji, tzn. plikow *.o.
+Po wykonaniu tej operacji całość zajmuje ok. 12MB.
+
+
+Chcąc zmienić tło i podać inny plik, należy zmodyfikować
+odpowiednio zawartość pliku serwer_zrodla/inc/gsv-BackgroundImage.h
+Znajduje się w nim definicja symbolu FILE_BACKGROUND_IMAGE
+W miejsce starej nazwy pliku, należy wpisać nazwę własnego pliku
+ze ścieżką dostępu (o ile plik nie jest w katalogu bieżącym).
+
+Numer portu komunikacyjnego znajduje się w pliku: serwer_zrodla/inc/gsv-Const.h

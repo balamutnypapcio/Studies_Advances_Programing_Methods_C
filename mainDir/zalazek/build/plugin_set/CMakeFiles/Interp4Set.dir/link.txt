@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -Wall -pedantic -shared -Wl,-soname,libInterp4Set.so -o ../libs/libInterp4Set.so CMakeFiles/Interp4Set.dir/src/Interp4Set.cpp.o 

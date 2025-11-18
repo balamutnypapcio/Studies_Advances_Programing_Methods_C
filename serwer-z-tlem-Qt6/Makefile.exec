@@ -1,0 +1,49 @@
+
+
+MAKEFILE=Makefile.exec
+
+MSG=""
+ifeq (${QT}, 5)
+ QMAKE=qmake
+else ifeq (${QT}, 6)
+ QMAKE=qmake6
+else
+ MSG="Niepoprawna wartosc parametru QT. Oczekiwana wartosc 5 lub 6.\\n\
+ Poprawne wywolanie to:\\n\
+     make -f ${MAKEFILE} QT=5\\n\
+   lub\\n\
+     make -f ${MAKEFILE} QT=6\\n\
+\\n\
+ Numer jest tu numerem glownym zainstalowanej wersji biblioteki Qt.\\n\
+\\n" 
+endif
+
+
+
+__start__: __check_num__ libQGLViewer/QGLViewer/libQGLViewer-qt${QT}.so __server__
+
+
+__check_num__:
+	@if test ! -z ${MSG} ; then echo -e "${MSG}"; exit 1; fi
+
+
+libQGLViewer/QGLViewer/libQGLViewer-qt${QT}.so:
+	@echo
+	@echo
+	@echo
+	@echo
+	@echo
+	@echo
+	cd libQGLViewer || exit 1; ${QMAKE} || exit 1; make
+	@echo
+	@echo
+	@echo ":)  Biblioteka QGLViewer dla Qt${QT} zostala utworzona."
+	@echo
+	@echo
+
+
+__server__: ./serwer_graficzny
+
+./serwer_graficzny:
+	cd serwer_zrodla; make -f Makefile.server QT=${QT}
+

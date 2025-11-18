@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -Wall -pedantic -shared -Wl,-soname,libInterp4Rotate.so -o ../libs/libInterp4Rotate.so CMakeFiles/Interp4Rotate.dir/src/Interp4Rotate.cpp.o 

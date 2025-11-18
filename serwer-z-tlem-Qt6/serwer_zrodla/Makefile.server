@@ -1,0 +1,114 @@
+
+
+MSG=""
+ifeq (${QT}, 5)
+ PODSTAWIENIA_BAZOWE=QT+=opengl
+ QMAKE=qmake
+else ifeq (${QT}, 6)
+ PODSTAWIENIA_BAZOWE=QT+=openglwidgets
+ QMAKE=qmake6
+else
+ MSG="Niepoprawna wartosc parametru QT: ${QT}. Oczekiwana wartosc 5 lub 6.\\n\
+ Poprawne wywolanie to:\\n\
+     make -f Makefile.serwer QT=5\\n\
+   lub\\n\
+     make -f Makefile.serwer QT=6\\n\
+" 
+endif
+
+
+
+NAZWA_APLIKACJI=serwer_graficzny
+
+KATALOG_TRG=..
+KATALOG_OUT=./out
+KATALOG_OBJ=${KATALOG_OUT}/obj
+KATALOG_MOC=${KATALOG_OUT}/moc
+KATALOG_PRO=${KATALOG_OUT}/pro
+
+URUCHOMIENIE_APLIKACJI=${KATALOG_TRG}/${NAZWA_APLIKACJI}
+ZRODLA_PROJEKTU=`/bin/pwd`/src/*.cpp `/bin/pwd`/inc/*.hh
+PODSTAWIENIA=${PODSTAWIENIA_BAZOWE}\
+             OBJECTS_DIR=${KATALOG_OBJ} INCLUDEPATH=inc\
+             INCLUDEPATH+=`/bin/pwd`/../libQGLViewer\
+             MOC_DIR=${KATALOG_MOC}\
+             QT+=widgets\
+             QT+=xml\
+             QMAKE_CXXFLAGS+=-std=c++17\
+             LIBS+=-L`/bin/pwd`/../libQGLViewer/QGLViewer\
+	     LIBS+=-lQGLViewer-qt${QT}\
+	     LIBS+=-lSOIL
+
+
+__start__: __lines__ ${NAZWA_APLIKACJI}
+	@echo
+	@echo
+	@echo 
+	@echo ":)  Aplikacja serwera graficznego zostala utworzona. Nazwa aplikacji: serwer_graficzny"
+	@echo
+	@echo
+	@echo
+
+# rm -f core*; cp -H background.png ${KATALOG_TRG};\
+#          cd ${KATALOG_TRG}; ulimit -c unlimited; ${URUCHOMIENIE_APLIKACJI}
+
+__lines__:
+	@echo
+	@echo
+	@echo
+	@echo
+	@echo
+	@echo
+	@if test ! -z ${MSG} ; then echo -e "${MSG}"; exit 1; fi
+
+
+__sprawdz_qmake__:
+	@if which ${QMAKE} > /dev/null; then exit 0;\
+        else\
+          echo; echo " Brak programu ${QMAKE}."\
+               " Prawdopodobnie biblioteka Qt nie zostala zainstalowana.";\
+          echo; exit 1;\
+        fi
+
+
+${NAZWA_APLIKACJI}: Makefile.app __sprawdz__
+
+__sprawdz__:
+	make -f Makefile.app
+
+Makefile.app: Makefile.server ${KATALOG_PRO}/${NAZWA_APLIKACJI}.pro
+	${QMAKE} -o Makefile.app ${KATALOG_PRO}/${NAZWA_APLIKACJI}.pro
+
+${KATALOG_PRO}/${NAZWA_APLIKACJI}.pro: Makefile.server
+	rm -f ${NAZWA_APLIKACJI}
+	rm -rf ${KATALOG_OUT}
+	${QMAKE} -project -nopwd -o ${KATALOG_PRO}/${NAZWA_APLIKACJI}.pro\
+               ${PODSTAWIENIA} ${ZRODLA_PROJEKTU}
+	echo "TARGET=${KATALOG_TRG}/serwer_graficzny" >> ${KATALOG_PRO}/${NAZWA_APLIKACJI}.pro
+
+project: __usun_pro__ ${KATALOG_PRO}/${NAZWA_APLIKACJI}.pro
+
+__usun_pro__:
+	rm -fr ${KATALOG_PRO}/
+
+clean:
+	make -f Makefile.app clean
+
+cleanall: clean
+	rm -f ${NAZWA_APLIKACJI}
+
+cleantotally: cleanall
+	rm -f  Makefile.app
+	rm -rf ${KATALOG_OUT}
+	find . -name \*~ -exec rm {} \;
+	find . -name \*.tex -exec rm {} \;
+
+help:
+	@echo "Podcele:"
+	@echo 
+	@echo " project  - wymusza utworzenie nowego projektu"
+	@echo " clean    - usuwa wszystkie produkty kompilacji i konsolidacji"
+	@echo " cleanall - usuwa produkty kompilacji wraz z aplikacja"
+	@echo " cleantotally - usuwa wszystko oprocz zrodel i pliku Makefile.server"
+	@echo " help     - wyswietla niniejszy pomoc"
+	@echo
