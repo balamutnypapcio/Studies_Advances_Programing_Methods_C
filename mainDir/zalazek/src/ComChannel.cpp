@@ -49,6 +49,7 @@ void ComChannel::Disconnect() {
 
 
 bool ComChannel::Send(const std::string& msg) const {
+
     if (_socket == -1) {
         std::cerr << "*** Blad: Proba wyslania danych bez aktywnego polaczenia." << std::endl;
         return false;

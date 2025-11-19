@@ -14,7 +14,7 @@ public:
 
     bool Connect(const std::string& host, int port);
     void Disconnect();
-    bool Send(const std::string& msg) const;
+    bool Send(const std::string& msg) const override;
 
     // Implementacja metod z klasy abstrakcyjnej
     void Init(int Socket) override { _socket = Socket; }

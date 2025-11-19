@@ -11,6 +11,7 @@
 
 
 #include <mutex>
+#include <string>
 
    /*!
     * \brief Definiuje interfejs kanału komunikacyjnego z serwerem graficznym.
@@ -54,6 +55,16 @@
         *  bezpieczniejszego zamknięcia.
         */
        virtual std::mutex &UseGuard() = 0;
+
+
+
+      // --- NOWA METODA W INTERFEJSIE ---
+      /*!
+         * \brief Wysyła wiadomość tekstową przez kanał.
+         * \param msg - Wiadomość do wysłania.
+         * \return true - jeśli wysłanie się powiodło.
+         */
+      virtual bool Send(const std::string& msg) const = 0;
     };
 
 

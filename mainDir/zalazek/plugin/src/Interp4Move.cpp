@@ -1,6 +1,10 @@
 #include <iostream>
 #include "Interp4Move.hh"
 
+#include <sstream>
+#include <unistd.h> 
+#include "ComChannel.hh"
+
 
 using std::cout;
 using std::endl;
@@ -56,15 +60,27 @@ const char* Interp4Move::GetCmdName() const
 /*!
  *
  */
-bool Interp4Move::ExecCmd( AbstractScene      &rScn, 
-                           const char         *sMobObjName,
-			   AbstractComChannel &rComChann
-			 )
-{
-  /*
-   *  Tu trzeba napisać odpowiedni kod.
-   */
-  return true;
+bool Interp4Move::ExecCmd(AbstractScene &rScn, const char *sMobObjName, AbstractComChannel &rComChann) {
+    if (_Distance_mm < 0) {
+        std::cerr << "Blad: Dlugosc drogi musi byc nieujemna!" << std::endl;
+        return false;
+    }
+    
+    double totalTime = _Distance_mm / std::abs(_Speed_mmS);
+    const double timeStep = 0.1;
+    int steps = static_cast<int>(totalTime / timeStep);
+    double stepDistance = (_Speed_mmS > 0 ? _Distance_mm : -_Distance_mm) / steps;
+    
+    for (int i = 1; i <= steps; ++i) {
+        std::stringstream cmd;
+        cmd << "UpdateObj Name=" << sMobObjName
+            << " Trans_m=(" << stepDistance * i << ",0,0)\n";
+        
+        rComChann.Send(cmd.str());
+        usleep(static_cast<int>(timeStep * 1000000));
+    }
+    
+    return true;
 }
 
 
@@ -73,10 +89,8 @@ bool Interp4Move::ExecCmd( AbstractScene      &rScn,
  */
 bool Interp4Move::ReadParams(std::istream& Strm_CmdsList)
 {
-  std::string ObjName; // Zmienna na nazwę obiektu, na razie jej nie używamy
-  Strm_CmdsList >> ObjName >> _Speed_mmS >> _Distance_mm;
-  // Zwróć true, jeśli wczytywanie się powiodło (strumień nie jest w stanie błędu)
-  return !Strm_CmdsList.fail();
+    Strm_CmdsList >> _Speed_mmS >> _Distance_mm;
+    return !Strm_CmdsList.fail();
 }
 
 

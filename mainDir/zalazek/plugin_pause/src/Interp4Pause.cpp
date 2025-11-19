@@ -1,6 +1,10 @@
 #include <iostream>
 #include "Interp4Pause.hh"
 
+#include <sstream>
+#include <unistd.h> 
+#include "ComChannel.hh"
+
 
 using std::cout;
 using std::endl;
@@ -57,9 +61,8 @@ bool Interp4Pause::ExecCmd( AbstractScene      &rScn,
 			   AbstractComChannel &rComChann
 			 )
 {
-  /*
-   *  Tu trzeba napisać odpowiedni kod.
-   */
+  unsigned int sleep_time_us = _Time_ms * 1000;
+  usleep(sleep_time_us);
   return true;
 }
 

@@ -1,6 +1,10 @@
 #include <iostream>
 #include "Interp4Set.hh"
 
+#include <sstream>
+#include <unistd.h> 
+#include "ComChannel.hh"
+
 
 using std::cout;
 using std::endl;
@@ -35,7 +39,8 @@ Interp4Set::Interp4Set() {}
  *
  */
 void Interp4Set::PrintCmd() const {
-    cout << GetCmdName() << " Pos: " << _Position << " Orient: " << _Orientation;
+    std::cout << _Position[0] << " " << _Position[1] << " " << _Position[2] << " "
+              << _Orientation[0] << " " << _Orientation[1] << " " << _Orientation[2];
 }
 
 
@@ -51,27 +56,23 @@ const char* Interp4Set::GetCmdName() const
 /*!
  *
  */
-bool Interp4Set::ExecCmd( AbstractScene      &rScn, 
-                           const char         *sMobObjName,
-			   AbstractComChannel &rComChann
-			 )
-{
-  /*
-   *  Tu trzeba napisać odpowiedni kod.
-   */
-  return true;
+bool Interp4Set::ExecCmd(AbstractScene &rScn, const char *sMobObjName, AbstractComChannel &rComChann) {
+    std::stringstream cmd;
+    cmd << "UpdateObj Name=" << sMobObjName 
+        << " Trans_m=(" << _Position[0] << "," << _Position[1] << "," << _Position[2] << ")"
+        << " RotXYZ_deg=(" << _Orientation[0] << "," << _Orientation[1] << "," << _Orientation[2] << ")\n";
+    
+    rComChann.Send(cmd.str());
+    return true;
 }
-
 
 /*!
  *
  */
-bool Interp4Set::ReadParams(std::istream& Strm_CmdsList) {
-    std::string ObjName;
-    Strm_CmdsList >> ObjName 
-                  >> _Position[0] >> _Position[1] >> _Position[2]
-                  >> _Orientation[0] >> _Orientation[1] >> _Orientation[2];
-    return !Strm_CmdsList.fail();
+bool Interp4Set::ReadParams(std::istream& Strm) {
+    Strm >> _Position[0] >> _Position[1] >> _Position[2]
+         >> _Orientation[0] >> _Orientation[1] >> _Orientation[2];
+    return !Strm.fail();
 }
 
 

@@ -189,4 +189,13 @@ plugin_set/CMakeFiles/Interp4Set.dir/src/Interp4Set.cpp.o: \
  /usr/include/c++/13/ctime /usr/include/c++/13/bits/parse_numbers.h \
  /usr/include/c++/13/bits/std_mutex.h \
  /usr/include/c++/13/bits/unique_lock.h \
- /home/jakub/ZMP/mainDir/zalazek/plugin_set/../inc/Vector3D.hh
+ /home/jakub/ZMP/mainDir/zalazek/plugin_set/../inc/Vector3D.hh \
+ /usr/include/c++/13/sstream /usr/include/c++/13/bits/sstream.tcc \
+ /usr/include/unistd.h /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
+ /usr/include/x86_64-linux-gnu/bits/environments.h \
+ /usr/include/x86_64-linux-gnu/bits/confname.h \
+ /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
+ /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
+ /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
+ /usr/include/linux/close_range.h \
+ /home/jakub/ZMP/mainDir/zalazek/plugin_set/../inc/ComChannel.hh

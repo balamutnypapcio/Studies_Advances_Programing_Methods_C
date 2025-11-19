@@ -82,7 +82,7 @@ int main()
         cout << "  Wysylanie: " << cmd_stream.str();
         channel.Send(cmd_stream.str());
     }
-    usleep(400000); // Dajemy serwerowi chwilę na narysowanie wszystkiego
+    usleep(1000); // Dajemy serwerowi chwilę na narysowanie wszystkiego
 
 
     // === FAZA 3: ŁADOWANIE NARZĘDZI (WTYCZEK) ===
