@@ -77,43 +77,71 @@ bool Interp4Rotate::ExecCmd(AbstractScene &rScn, const char *sMobObjName, Abstra
         return false;
     }
 
+    if (std::abs(_Speed_ds) < 0.001) {
+        std::cerr << "Blad: Predkosc katowa nie moze byc zerowa!" << std::endl;
+        return false;
+    }
+
     MobileObj* pObj = static_cast<MobileObj*>(rScn.FindMobileObj(sMobObjName));
     if (!pObj) {
         std::cerr << "Blad: Nie znaleziono obiektu '" << sMobObjName << "' na scenie." << std::endl;
         return false;
     }
     
-    const double DURATION_S = std::abs(_Degree_d / _Speed_ds);
-    const int NUM_FRAMES = 100;
-    const unsigned int FRAME_DELAY_US = (DURATION_S / NUM_FRAMES) * 1000000;
-    double step_degree = (static_cast<double> (_Degree_d) / NUM_FRAMES) * (_Speed_ds > 0 ? 1 : -1);
-    double current_angle = 0.0;
+    // === POBIERZ POCZĄTKOWĄ ORIENTACJĘ ===
+    pObj->Lock();
+    double start_yaw = pObj->GetAng_Yaw_deg();
+    double start_pitch = pObj->GetAng_Pitch_deg();
+    double start_roll = pObj->GetAng_Roll_deg();
+    pObj->Unlock();
 
+
+    // === OBLICZ PARAMETRY ANIMACJI ===
+    const double DURATION_S = static_cast<double>(_Degree_d) / std::abs(_Speed_ds);
+    const double FPS = 60.0;
+    const int NUM_FRAMES = static_cast<int>(DURATION_S * FPS);
+    const unsigned int FRAME_DELAY_US = 16666; // ~1/60s
+
+    if (NUM_FRAMES == 0) {
+        std::cerr << "Obrot zbyt krotki, pomijam." << std::endl;
+        return true;
+    }
+    
+    double step_angle = (static_cast<double>(_Degree_d) / NUM_FRAMES) * (_Speed_ds > 0 ? 1.0 : -1.0);
 
     for (int i = 0; i < NUM_FRAMES; ++i) {
-        current_angle += step_degree;
         pObj->Lock();
-        std::stringstream cmd;
-
-        cmd << "UpdateObj Name=" << sMobObjName << " RotXYZ_deg=";
+        
+        // Oblicz NOWĄ BEZWZGLĘDNĄ orientację
+        double new_yaw = start_yaw;
+        double new_pitch = start_pitch;
+        double new_roll = start_roll;
         
         switch (_Axe) {
-            case axes::x:
-                cmd << "(" << current_angle << ",0,0)";
+            case axes::x:  // OX = Pitch
+                new_pitch = start_pitch + (step_angle * i);
                 break;
-            case axes::y:
-                cmd << "(0," << current_angle << ",0)";
+            case axes::y:  // OY = Yaw
+                new_yaw = start_yaw + (step_angle * i);
                 break;
-            case axes::z:
-                cmd << "(0,0," << current_angle << ")";
+            case axes::z:  // OZ = Roll
+                new_roll = start_roll + (step_angle * i);
                 break;
         }
         
-        cmd << "\n";
-
+        // Zaktualizuj lokalny obiekt
+        pObj->SetAng_Yaw_deg(new_yaw);
+        pObj->SetAng_Pitch_deg(new_pitch);
+        pObj->SetAng_Roll_deg(new_roll);
+        
+        // Wyślij BEZWZGLĘDNĄ orientację do serwera
+        std::stringstream cmd;
+        cmd << "UpdateObj Name=" << sMobObjName 
+            << " RotXYZ_deg=(" << new_yaw << "," << new_pitch << "," << new_roll << ")\n";
+        
         rComChann.Send(cmd.str());
         pObj->Unlock();
-
+        
         usleep(FRAME_DELAY_US);
     }
     return true;

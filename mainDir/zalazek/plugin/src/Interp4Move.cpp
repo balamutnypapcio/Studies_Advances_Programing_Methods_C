@@ -73,20 +73,40 @@ bool Interp4Move::ExecCmd(AbstractScene &rScn, const char *sMobObjName, Abstract
         return false;
     }
     
-    const double DURATION_S = _Distance_mm / std::abs(_Speed_mmS);
-    const int NUM_FRAMES = 100;
-    const unsigned int FRAME_DELAY_US = (DURATION_S / NUM_FRAMES) * 1000000;
-    double step_dist = (static_cast<double>(_Distance_mm) / NUM_FRAMES) * (_Speed_mmS > 0 ? 1 : -1);
-    double distance_covered = 0.0;
+    // === POBIERZ POCZĄTKOWĄ POZYCJĘ ===
+    pObj->Lock();
+    Vector3D start_pos = pObj->GetPositoin_m();
+    pObj->Unlock();
 
+
+    // === OBLICZ PARAMETRY ANIMACJI ===
+    const double DURATION_S = _Distance_mm / std::abs(_Speed_mmS);
+    const double FPS = 60.0;
+    const int NUM_FRAMES = static_cast<int>(DURATION_S * FPS);
+    const unsigned int FRAME_DELAY_US = 16666;  // ~1/60s
+
+    if (NUM_FRAMES == 0) {
+      std::cerr << "Ruch zbyt krotki, pomijam." << std::endl;
+      return true;
+    }
+
+    double step_dist = (_Distance_mm / NUM_FRAMES) * (_Speed_mmS > 0 ? 1.0 : -1.0);
+  
     for (int i = 0; i < NUM_FRAMES; ++i) {    
         pObj->Lock();
-        distance_covered += step_dist;
+        
+        //OBLICZ BEZWGLEDNA POZYCJE WZGLEDEM AKTUALNEJ POZYCJI OBIEKTU
+        Vector3D new_pos = start_pos;
+        new_pos[0] += step_dist * i; 
+        pObj->SetPosition_m(new_pos);
+        
         std::stringstream cmd;
-        cmd << "UpdateObj Name=" << sMobObjName << " Trans_m=(" << distance_covered << ",0,0)\n";
+        cmd << "UpdateObj Name=" << sMobObjName 
+            << " Trans_m=(" << new_pos[0] << "," << new_pos[1] << "," << new_pos[2] << ")\n";
+        
         rComChann.Send(cmd.str());
         pObj->Unlock();
-        std::cout<<"i"<<std::endl;
+        
         usleep(FRAME_DELAY_US);
     }
     return true;

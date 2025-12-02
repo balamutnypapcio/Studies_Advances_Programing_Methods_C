@@ -88,7 +88,7 @@ int main()
     Scene scene;
     cout << "\n--- Faza 2b: Tworzenie lokalnej reprezentacji sceny ---" << endl;
     for (const auto& cuboid_data : cuboids) {
-        auto pObj = std::make_shared<MobileObj>(cuboid_data.Name);
+        std::shared_ptr<MobileObj> pObj = std::make_shared<MobileObj>(cuboid_data.Name);
         scene.AddMobileObj(pObj);
         cout << "  Stworzono lokalny obiekt: " << cuboid_data.Name << endl;
     }    

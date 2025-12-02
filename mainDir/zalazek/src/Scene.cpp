@@ -24,7 +24,7 @@ AbstractMobileObj* Scene::FindMobileObj(const char *sName) {
  * żadnych obiektów, więc ta metoda po prostu ignoruje przekazany wskaźnik.
  */
 void Scene::AddMobileObj(std::shared_ptr<AbstractMobileObj> pMobObj) {
-    auto pCastedObj = std::dynamic_pointer_cast<MobileObj>(pMobObj);
+    std::shared_ptr<MobileObj> pCastedObj = std::dynamic_pointer_cast<MobileObj>(pMobObj);
     if (pCastedObj) {
         std::lock_guard<std::mutex> lock(_ScnMutex);
         _ObjectMap[pCastedObj->GetName()] = pCastedObj;
