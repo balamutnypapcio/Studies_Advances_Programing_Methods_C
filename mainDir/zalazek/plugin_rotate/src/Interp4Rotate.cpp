@@ -4,6 +4,7 @@
 #include <sstream>
 #include <unistd.h> 
 #include "ComChannel.hh"
+#include "MobileObj.hh"
 
 
 using std::cout;
@@ -32,7 +33,7 @@ AbstractInterp4Command* CreateCmd(void)
 /*!
  *
  */
-Interp4Rotate::Interp4Rotate(): _Axe(x), _Speed_ds(10), _Degree_d(30)
+Interp4Rotate::Interp4Rotate(): _Axe(x), _Speed_ds(0.0), _Degree_d(0.0)
 {}
 
 
@@ -70,39 +71,51 @@ const char* Interp4Rotate::GetCmdName() const
  *
  */
 bool Interp4Rotate::ExecCmd(AbstractScene &rScn, const char *sMobObjName, AbstractComChannel &rComChann) {
+
     if (_Degree_d < 0) {
         std::cerr << "Blad: Kat obrotu musi byc nieujemny!" << std::endl;
         return false;
     }
+
+    MobileObj* pObj = static_cast<MobileObj*>(rScn.FindMobileObj(sMobObjName));
+    if (!pObj) {
+        std::cerr << "Blad: Nie znaleziono obiektu '" << sMobObjName << "' na scenie." << std::endl;
+        return false;
+    }
     
-    double totalTime = _Degree_d / std::abs(_Speed_ds);
-    const double timeStep = 0.1;
-    int steps = static_cast<int>(totalTime / timeStep);
-    double stepAngle = (_Speed_ds > 0 ? _Degree_d : -_Degree_d) / steps;
-    
-    for (int i = 1; i <= steps; ++i) {
+    const double DURATION_S = std::abs(_Degree_d / _Speed_ds);
+    const int NUM_FRAMES = 100;
+    const unsigned int FRAME_DELAY_US = (DURATION_S / NUM_FRAMES) * 1000000;
+    double step_degree = (static_cast<double> (_Degree_d) / NUM_FRAMES) * (_Speed_ds > 0 ? 1 : -1);
+    double current_angle = 0.0;
+
+
+    for (int i = 0; i < NUM_FRAMES; ++i) {
+        current_angle += step_degree;
+        pObj->Lock();
         std::stringstream cmd;
+
         cmd << "UpdateObj Name=" << sMobObjName << " RotXYZ_deg=";
-        
-        double currentAngle = stepAngle * i;
         
         switch (_Axe) {
             case axes::x:
-                cmd << "(" << currentAngle << ",0,0)";
+                cmd << "(" << current_angle << ",0,0)";
                 break;
             case axes::y:
-                cmd << "(0," << currentAngle << ",0)";
+                cmd << "(0," << current_angle << ",0)";
                 break;
             case axes::z:
-                cmd << "(0,0," << currentAngle << ")";
+                cmd << "(0,0," << current_angle << ")";
                 break;
         }
         
         cmd << "\n";
+
         rComChann.Send(cmd.str());
-        usleep(static_cast<int>(timeStep * 1000000));
+        pObj->Unlock();
+
+        usleep(FRAME_DELAY_US);
     }
-    
     return true;
 }
 

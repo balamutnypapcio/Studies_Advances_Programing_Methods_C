@@ -4,6 +4,7 @@
 #include <sstream>
 #include <unistd.h> 
 #include "ComChannel.hh"
+#include "MobileObj.hh"
 
 
 using std::cout;
@@ -57,12 +58,19 @@ const char* Interp4Set::GetCmdName() const
  *
  */
 bool Interp4Set::ExecCmd(AbstractScene &rScn, const char *sMobObjName, AbstractComChannel &rComChann) {
+    MobileObj* pObj = static_cast<MobileObj*>(rScn.FindMobileObj(sMobObjName));
+    if (!pObj) {
+        std::cerr << "Blad: Nie znaleziono obiektu '" << sMobObjName << "' na scenie." << std::endl;
+        return false;
+    }
+
     std::stringstream cmd;
     cmd << "UpdateObj Name=" << sMobObjName 
         << " Trans_m=(" << _Position[0] << "," << _Position[1] << "," << _Position[2] << ")"
         << " RotXYZ_deg=(" << _Orientation[0] << "," << _Orientation[1] << "," << _Orientation[2] << ")\n";
-    
+    pObj->Lock();
     rComChann.Send(cmd.str());
+    pObj->Unlock();
     return true;
 }
 

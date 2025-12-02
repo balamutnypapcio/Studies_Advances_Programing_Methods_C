@@ -33,7 +33,7 @@ class Interp4Rotate: public AbstractInterp4Command {
   };
   axes _Axe;
   double  _Speed_ds;
-  unsigned long _Degree_d;
+  double _Degree_d;
  public:
   /*!
    * \brief

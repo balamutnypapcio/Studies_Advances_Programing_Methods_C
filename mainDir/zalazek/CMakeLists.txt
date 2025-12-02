@@ -61,5 +61,6 @@ set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 file(COPY
     config
     polecenia.txt
+    polecenia_etap_3.txt
   DESTINATION ${CMAKE_BINARY_DIR}
 )

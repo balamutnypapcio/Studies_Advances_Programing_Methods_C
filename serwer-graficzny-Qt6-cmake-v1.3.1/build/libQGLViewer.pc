@@ -1,0 +1,11 @@
+prefix=/usr/local
+exec_prefix=/usr/local
+libdir=/usr/local/lib
+includedir=/usr/local/include/QGLViewer
+
+Name: libQGLViewer
+Description: libQGLViewer is an open source C++ library based on Qt that eases the creation of OpenGL 3D viewers.
+Version: 2.9.1
+URL: https://github.com/GillesDebunne/libQGLViewer
+Libs: -L${libdir} -lQGLViewer
+Cflags: -I${includedir}

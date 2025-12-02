@@ -84,6 +84,14 @@ int main()
     }
     usleep(1000); // Dajemy serwerowi chwilę na narysowanie wszystkiego
 
+    // --- FAZA 2b: Tworzenie lokalnej reprezentacji sceny ---
+    Scene scene;
+    cout << "\n--- Faza 2b: Tworzenie lokalnej reprezentacji sceny ---" << endl;
+    for (const auto& cuboid_data : cuboids) {
+        auto pObj = std::make_shared<MobileObj>(cuboid_data.Name);
+        scene.AddMobileObj(pObj);
+        cout << "  Stworzono lokalny obiekt: " << cuboid_data.Name << endl;
+    }    
 
     // === FAZA 3: ŁADOWANIE NARZĘDZI (WTYCZEK) ===
     // Dynamicznie ładujemy wszystkie wtyczki zdefiniowane w XML.
@@ -114,7 +122,7 @@ int main()
     // === FAZA 4: PRZYGOTOWANIE DANYCH WEJŚCIOWYCH ===
     // Przetwarzamy plik z poleceniami za pomocą preprocesora C.
     cout << "\n--- Faza 4: Przetwarzanie pliku polecenia.txt ---" << endl;
-    string processed_content = PreprocessFile("polecenia.txt");
+    string processed_content = PreprocessFile("polecenia_etap_3.txt");
     if (processed_content.empty()) {
         cerr << "!!! Blad: Plik polecen jest pusty lub wystapil blad preprocesora." << endl;
         // Sprzątanie przed wyjściem
@@ -122,13 +130,15 @@ int main()
         channel.Disconnect();
         return 1;
     }
+    std::cout << "=== PRZETWORZONY PLIK ===" << std::endl;
+    std::cout << processed_content << std::endl;
+    std::cout << "=========================" << std::endl;
     stringstream CmdStream(processed_content);
     
 
     // === FAZA 5: URUCHOMIENIE GŁÓWNEJ LOGIKI ===
     // Tworzymy obiekt interpretera i przekazujemy mu wszystkie potrzebne narzędzia.
     cout << "\n--- Faza 5: Uruchomienie interpretera polecen ---" << endl;
-    Scene scene; // Tworzymy atrapę sceny
     Interpreter interpreter(Plugins, channel, scene);
     interpreter.Exec(CmdStream); // Uruchamiamy główną pętlę
 

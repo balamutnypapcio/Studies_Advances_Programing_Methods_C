@@ -179,13 +179,29 @@ plugin_pause/CMakeFiles/Interp4Pause.dir/src/Interp4Pause.cpp.o: \
  /usr/include/c++/13/tr1/poly_hermite.tcc \
  /usr/include/c++/13/tr1/poly_laguerre.tcc \
  /usr/include/c++/13/tr1/riemann_zeta.tcc /usr/include/c++/13/cassert \
- /usr/include/assert.h \
- /home/jakub/ZMP/mainDir/zalazek/plugin_pause/../inc/AbstractComChannel.hh \
- /usr/include/c++/13/mutex /usr/include/c++/13/bits/chrono.h \
- /usr/include/c++/13/ratio /usr/include/c++/13/cstdint \
+ /usr/include/assert.h /usr/include/c++/13/memory \
+ /usr/include/c++/13/bits/stl_tempbuf.h \
+ /usr/include/c++/13/bits/stl_uninitialized.h \
+ /usr/include/c++/13/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/13/bits/align.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
+ /usr/include/c++/13/bits/unique_ptr.h \
+ /usr/include/c++/13/bits/shared_ptr.h \
+ /usr/include/c++/13/bits/shared_ptr_base.h \
+ /usr/include/c++/13/bits/allocated_ptr.h \
+ /usr/include/c++/13/ext/aligned_buffer.h \
+ /usr/include/c++/13/ext/concurrence.h \
+ /usr/include/c++/13/bits/shared_ptr_atomic.h \
+ /usr/include/c++/13/bits/atomic_base.h \
+ /usr/include/c++/13/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/13/backward/auto_ptr.h \
+ /usr/include/c++/13/pstl/glue_memory_defs.h \
+ /usr/include/c++/13/pstl/execution_defs.h \
+ /home/jakub/ZMP/mainDir/zalazek/plugin_pause/../inc/AbstractComChannel.hh \
+ /usr/include/c++/13/mutex /usr/include/c++/13/bits/chrono.h \
+ /usr/include/c++/13/ratio /usr/include/c++/13/cstdint \
  /usr/include/c++/13/ctime /usr/include/c++/13/bits/parse_numbers.h \
  /usr/include/c++/13/bits/std_mutex.h \
  /usr/include/c++/13/bits/unique_lock.h /usr/include/c++/13/sstream \
@@ -197,4 +213,5 @@ plugin_pause/CMakeFiles/Interp4Pause.dir/src/Interp4Pause.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
  /usr/include/linux/close_range.h \
- /home/jakub/ZMP/mainDir/zalazek/plugin_pause/../inc/ComChannel.hh
+ /home/jakub/ZMP/mainDir/zalazek/plugin_pause/../inc/ComChannel.hh \
+ /home/jakub/ZMP/mainDir/zalazek/plugin_pause/../inc/MobileObj.hh

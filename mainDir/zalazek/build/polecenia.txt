@@ -8,10 +8,10 @@
   
   Rotate Podstawa.Ramie1 OX ROTATE_SPEED 40
   
-  Pause  1000                 /* Zawieszenie na 1 sek. */
+  Pause  10000                  /* Zawieszenie na 1 sek. */
   
-  Move   Podstawa  0.2 1
+  Move   Podstawa  -2 2
   
   Rotate Podstawa.Ramie1 OZ ROTATE_SPEED 60
   
-  Move   Podstawa.Ramie1 0.1 1
+  Move   Podstawa.Ramie1 2 2

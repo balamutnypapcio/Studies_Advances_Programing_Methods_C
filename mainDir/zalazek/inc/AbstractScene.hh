@@ -3,6 +3,7 @@
 
 
 #include "AbstractMobileObj.hh"
+#include <memory> 
 
 /*!
  * \file 
@@ -39,7 +40,7 @@
 	*  skonstruowaną pełną kwalifikowaną nazwę.
 	*  \param[in] pMobObj - wskaźnik na istniejący obiekt.
         */
-        virtual void AddMobileObj(AbstractMobileObj *pMobObj) = 0;
+        virtual void AddMobileObj(std::shared_ptr<AbstractMobileObj> pMobObj) = 0;
   };
 
 #endif

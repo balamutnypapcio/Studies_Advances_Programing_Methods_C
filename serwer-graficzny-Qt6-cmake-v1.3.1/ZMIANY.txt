@@ -1,0 +1,53 @@
+
+ wersja 1.1  ----------------------------------------------------------
+  - Numer portu, na którym nasłuchuje serwer można ustawić poprzez
+    wywołanie programu z opcją -p lub --port, np.
+        ./serwer_graficzny --port 6000
+
+  - Dodano nowe polecenia:
+     ShowLocalCrds  [yes|no]  - pokazanie lokalnego ukladu wspolrzednych bryl lub nie,
+     ShowBgTexture  [yes|no]  - pokazanie tekstury tla lub nie,
+     DrawMode [Fill|Line]     - tryb rysowania z wypelnieniem lub nie,
+     BgColor RGB=(rr,gg,bb)   - ustawienie koloru tła, gdzie rr, gg i bb to liczby z zakresu [0,255].
+
+ wersja 1.2 (2025.11.24) ----------------------------------------------
+  - Dodano mozliwosc wstawiania nastepujacych obiektow geometrycznych:
+     * graniastoslup prawidlowy szesciokatny,
+     * ostroslup prawidlowy szesciokatny,
+     * sfera,
+     * półsfera.
+
+    Te obiekty geometryczne sa dodawane przez polecenie AddObj. Po nazwie nalezy
+    podac wlasciwy typ, np.
+      AddObj Name=Podstawa Type=Prism ...
+
+    Dopuszczalne nazwy typow to:
+      Cuboid (sześcian), Prism (graniastoslup), Pyramid (ostroslup),
+      Sphere (sfera), Hemisphere (półsfera).
+      
+
+ wersja 1.2.1 (2025.11.28) --------------------------------------------
+  - Poprawiono aktualizację typu bryły. Domyślnie nie jest aktualizowana
+    do typu Cuboid.
+  - Utworzono dodatkowy moduł dla tekstur tła i ujednolicono plik CMakeLists.txt
+    dla przypadku obecności biblioteki SOIL i jej braku.
+
+
+ wersja 1.3.0 (2025.11.29) --------------------------------------------
+  - Dodana mozliwość zmiany tła. Można to zrobić zarówno z poziomu
+    wywołania polecenia poprezez opcję -b lub --bg, np.
+       ./serwer_graficzny -b /tmp/nowe_tlo.png
+
+    Plik graficzny musi być w formacie PNG.
+  - Tło można również zmienić poprzez polecenie BgImage wyslane do serwera.
+    Postać polecenia:
+       BgImage File="/tmp/nowe_tlo.png"
+  - Dodano możliwość przełączania z klawiatury trybu rysowania z Fill na Line
+    i na odwrót.
+    Można to zrobić bezpośrednio poprzez skrót klawiszowy (klawisz 'R').
+  - Dodano możliwość przełączania rysowania lokalnego układu współrzędnych
+    lub jego zaniechania. Skrót klawiszowy to 'L'.
+
+ wersja 1.3.1 (2025.11.30) --------------------------------------------
+  - Zostały poprawione i zoptymalizowane funkcje tworzenie
+    sfery i półsfery.

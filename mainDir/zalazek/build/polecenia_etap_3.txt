@@ -1,0 +1,8 @@
+Begin_Parallel_Actions
+  // Wykonaj tylko jedno polecenie:
+  // Przesuń obiekt 'Podstawa' o 1 jednostkę z prędkością 0.5 jedn/s.
+  // Animacja powinna potrwać 1 / 0.5 = 2 sekundy.
+  Set Podstawa 10 10 2 0 0 0
+  Move Podstawa 1.0 4.0
+  Rotate Podstawa OX 100 10
+End_Parallel_Actions

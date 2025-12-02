@@ -716,6 +716,7 @@ CMakeFiles/interp.dir/src/Interpreter.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src
   /home/jakub/ZMP/mainDir/zalazek/inc/ComChannel.hh \
   /home/jakub/ZMP/mainDir/zalazek/inc/Interpreter.hh \
   /home/jakub/ZMP/mainDir/zalazek/inc/LibInterface.hh \
+  /home/jakub/ZMP/mainDir/zalazek/inc/MobileObj.hh \
   /home/jakub/ZMP/mainDir/zalazek/inc/Scene.hh \
   /home/jakub/ZMP/mainDir/zalazek/inc/Vector3D.hh \
   /home/jakub/ZMP/mainDir/zalazek/inc/geomVector.hh \
@@ -723,10 +724,15 @@ CMakeFiles/interp.dir/src/Interpreter.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
   /usr/include/assert.h \
+  /usr/include/c++/13/backward/auto_ptr.h \
   /usr/include/c++/13/backward/binders.h \
   /usr/include/c++/13/bit \
+  /usr/include/c++/13/bits/align.h \
   /usr/include/c++/13/bits/alloc_traits.h \
+  /usr/include/c++/13/bits/allocated_ptr.h \
   /usr/include/c++/13/bits/allocator.h \
+  /usr/include/c++/13/bits/atomic_base.h \
+  /usr/include/c++/13/bits/atomic_lockfree_defines.h \
   /usr/include/c++/13/bits/basic_ios.h \
   /usr/include/c++/13/bits/basic_ios.tcc \
   /usr/include/c++/13/bits/basic_string.h \
@@ -768,10 +774,15 @@ CMakeFiles/interp.dir/src/Interpreter.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src
   /usr/include/c++/13/bits/range_access.h \
   /usr/include/c++/13/bits/refwrap.h \
   /usr/include/c++/13/bits/requires_hosted.h \
+  /usr/include/c++/13/bits/shared_ptr.h \
+  /usr/include/c++/13/bits/shared_ptr_atomic.h \
+  /usr/include/c++/13/bits/shared_ptr_base.h \
   /usr/include/c++/13/bits/specfun.h \
   /usr/include/c++/13/bits/std_abs.h \
   /usr/include/c++/13/bits/std_mutex.h \
+  /usr/include/c++/13/bits/std_thread.h \
   /usr/include/c++/13/bits/stl_algobase.h \
+  /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
   /usr/include/c++/13/bits/stl_function.h \
   /usr/include/c++/13/bits/stl_iterator.h \
@@ -780,15 +791,22 @@ CMakeFiles/interp.dir/src/Interpreter.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src
   /usr/include/c++/13/bits/stl_map.h \
   /usr/include/c++/13/bits/stl_multimap.h \
   /usr/include/c++/13/bits/stl_pair.h \
+  /usr/include/c++/13/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/13/bits/stl_tempbuf.h \
   /usr/include/c++/13/bits/stl_tree.h \
+  /usr/include/c++/13/bits/stl_uninitialized.h \
+  /usr/include/c++/13/bits/stl_vector.h \
   /usr/include/c++/13/bits/streambuf.tcc \
   /usr/include/c++/13/bits/streambuf_iterator.h \
   /usr/include/c++/13/bits/string_view.tcc \
   /usr/include/c++/13/bits/stringfwd.h \
+  /usr/include/c++/13/bits/this_thread_sleep.h \
   /usr/include/c++/13/bits/unique_lock.h \
+  /usr/include/c++/13/bits/unique_ptr.h \
   /usr/include/c++/13/bits/uses_allocator.h \
   /usr/include/c++/13/bits/uses_allocator_args.h \
   /usr/include/c++/13/bits/utility.h \
+  /usr/include/c++/13/bits/vector.tcc \
   /usr/include/c++/13/cassert \
   /usr/include/c++/13/cctype \
   /usr/include/c++/13/cerrno \
@@ -807,6 +825,7 @@ CMakeFiles/interp.dir/src/Interpreter.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src
   /usr/include/c++/13/ext/aligned_buffer.h \
   /usr/include/c++/13/ext/alloc_traits.h \
   /usr/include/c++/13/ext/atomicity.h \
+  /usr/include/c++/13/ext/concurrence.h \
   /usr/include/c++/13/ext/numeric_traits.h \
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
@@ -817,9 +836,12 @@ CMakeFiles/interp.dir/src/Interpreter.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src
   /usr/include/c++/13/istream \
   /usr/include/c++/13/limits \
   /usr/include/c++/13/map \
+  /usr/include/c++/13/memory \
   /usr/include/c++/13/mutex \
   /usr/include/c++/13/new \
   /usr/include/c++/13/ostream \
+  /usr/include/c++/13/pstl/execution_defs.h \
+  /usr/include/c++/13/pstl/glue_memory_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/ratio \
   /usr/include/c++/13/stdexcept \
@@ -827,6 +849,7 @@ CMakeFiles/interp.dir/src/Interpreter.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src
   /usr/include/c++/13/string \
   /usr/include/c++/13/string_view \
   /usr/include/c++/13/system_error \
+  /usr/include/c++/13/thread \
   /usr/include/c++/13/tr1/bessel_function.tcc \
   /usr/include/c++/13/tr1/beta_function.tcc \
   /usr/include/c++/13/tr1/ell_integral.tcc \
@@ -842,6 +865,7 @@ CMakeFiles/interp.dir/src/Interpreter.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src
   /usr/include/c++/13/tuple \
   /usr/include/c++/13/type_traits \
   /usr/include/c++/13/typeinfo \
+  /usr/include/c++/13/vector \
   /usr/include/ctype.h \
   /usr/include/dlfcn.h \
   /usr/include/endian.h \
@@ -966,10 +990,15 @@ CMakeFiles/interp.dir/src/LibInterface.cpp.o: /home/jakub/ZMP/mainDir/zalazek/sr
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
   /usr/include/assert.h \
+  /usr/include/c++/13/backward/auto_ptr.h \
   /usr/include/c++/13/backward/binders.h \
   /usr/include/c++/13/bit \
+  /usr/include/c++/13/bits/align.h \
   /usr/include/c++/13/bits/alloc_traits.h \
+  /usr/include/c++/13/bits/allocated_ptr.h \
   /usr/include/c++/13/bits/allocator.h \
+  /usr/include/c++/13/bits/atomic_base.h \
+  /usr/include/c++/13/bits/atomic_lockfree_defines.h \
   /usr/include/c++/13/bits/basic_ios.h \
   /usr/include/c++/13/bits/basic_ios.tcc \
   /usr/include/c++/13/bits/basic_string.h \
@@ -1009,6 +1038,9 @@ CMakeFiles/interp.dir/src/LibInterface.cpp.o: /home/jakub/ZMP/mainDir/zalazek/sr
   /usr/include/c++/13/bits/range_access.h \
   /usr/include/c++/13/bits/refwrap.h \
   /usr/include/c++/13/bits/requires_hosted.h \
+  /usr/include/c++/13/bits/shared_ptr.h \
+  /usr/include/c++/13/bits/shared_ptr_atomic.h \
+  /usr/include/c++/13/bits/shared_ptr_base.h \
   /usr/include/c++/13/bits/specfun.h \
   /usr/include/c++/13/bits/std_abs.h \
   /usr/include/c++/13/bits/std_mutex.h \
@@ -1019,11 +1051,15 @@ CMakeFiles/interp.dir/src/LibInterface.cpp.o: /home/jakub/ZMP/mainDir/zalazek/sr
   /usr/include/c++/13/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/13/bits/stl_iterator_base_types.h \
   /usr/include/c++/13/bits/stl_pair.h \
+  /usr/include/c++/13/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/13/bits/stl_tempbuf.h \
+  /usr/include/c++/13/bits/stl_uninitialized.h \
   /usr/include/c++/13/bits/streambuf.tcc \
   /usr/include/c++/13/bits/streambuf_iterator.h \
   /usr/include/c++/13/bits/string_view.tcc \
   /usr/include/c++/13/bits/stringfwd.h \
   /usr/include/c++/13/bits/unique_lock.h \
+  /usr/include/c++/13/bits/unique_ptr.h \
   /usr/include/c++/13/bits/uses_allocator.h \
   /usr/include/c++/13/bits/uses_allocator_args.h \
   /usr/include/c++/13/bits/utility.h \
@@ -1042,8 +1078,10 @@ CMakeFiles/interp.dir/src/LibInterface.cpp.o: /home/jakub/ZMP/mainDir/zalazek/sr
   /usr/include/c++/13/debug/assertions.h \
   /usr/include/c++/13/debug/debug.h \
   /usr/include/c++/13/exception \
+  /usr/include/c++/13/ext/aligned_buffer.h \
   /usr/include/c++/13/ext/alloc_traits.h \
   /usr/include/c++/13/ext/atomicity.h \
+  /usr/include/c++/13/ext/concurrence.h \
   /usr/include/c++/13/ext/numeric_traits.h \
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
@@ -1053,9 +1091,12 @@ CMakeFiles/interp.dir/src/LibInterface.cpp.o: /home/jakub/ZMP/mainDir/zalazek/sr
   /usr/include/c++/13/iostream \
   /usr/include/c++/13/istream \
   /usr/include/c++/13/limits \
+  /usr/include/c++/13/memory \
   /usr/include/c++/13/mutex \
   /usr/include/c++/13/new \
   /usr/include/c++/13/ostream \
+  /usr/include/c++/13/pstl/execution_defs.h \
+  /usr/include/c++/13/pstl/glue_memory_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/ratio \
   /usr/include/c++/13/stdexcept \
@@ -1193,6 +1234,7 @@ CMakeFiles/interp.dir/src/LibInterface.cpp.o: /home/jakub/ZMP/mainDir/zalazek/sr
 CMakeFiles/interp.dir/src/Scene.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src/Scene.cpp \
   /home/jakub/ZMP/mainDir/zalazek/inc/AbstractMobileObj.hh \
   /home/jakub/ZMP/mainDir/zalazek/inc/AbstractScene.hh \
+  /home/jakub/ZMP/mainDir/zalazek/inc/MobileObj.hh \
   /home/jakub/ZMP/mainDir/zalazek/inc/Scene.hh \
   /home/jakub/ZMP/mainDir/zalazek/inc/Vector3D.hh \
   /home/jakub/ZMP/mainDir/zalazek/inc/geomVector.hh \
@@ -1200,20 +1242,27 @@ CMakeFiles/interp.dir/src/Scene.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src/Scene
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
   /usr/include/assert.h \
+  /usr/include/c++/13/backward/auto_ptr.h \
   /usr/include/c++/13/backward/binders.h \
   /usr/include/c++/13/bit \
+  /usr/include/c++/13/bits/align.h \
   /usr/include/c++/13/bits/alloc_traits.h \
+  /usr/include/c++/13/bits/allocated_ptr.h \
   /usr/include/c++/13/bits/allocator.h \
+  /usr/include/c++/13/bits/atomic_base.h \
+  /usr/include/c++/13/bits/atomic_lockfree_defines.h \
   /usr/include/c++/13/bits/basic_ios.h \
   /usr/include/c++/13/bits/basic_ios.tcc \
   /usr/include/c++/13/bits/basic_string.h \
   /usr/include/c++/13/bits/basic_string.tcc \
   /usr/include/c++/13/bits/char_traits.h \
   /usr/include/c++/13/bits/charconv.h \
+  /usr/include/c++/13/bits/chrono.h \
   /usr/include/c++/13/bits/concept_check.h \
   /usr/include/c++/13/bits/cpp_type_traits.h \
   /usr/include/c++/13/bits/cxxabi_forced.h \
   /usr/include/c++/13/bits/cxxabi_init_exception.h \
+  /usr/include/c++/13/bits/erase_if.h \
   /usr/include/c++/13/bits/exception.h \
   /usr/include/c++/13/bits/exception_defines.h \
   /usr/include/c++/13/bits/exception_ptr.h \
@@ -1233,27 +1282,41 @@ CMakeFiles/interp.dir/src/Scene.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src/Scene
   /usr/include/c++/13/bits/move.h \
   /usr/include/c++/13/bits/nested_exception.h \
   /usr/include/c++/13/bits/new_allocator.h \
+  /usr/include/c++/13/bits/node_handle.h \
   /usr/include/c++/13/bits/ostream.tcc \
   /usr/include/c++/13/bits/ostream_insert.h \
+  /usr/include/c++/13/bits/parse_numbers.h \
   /usr/include/c++/13/bits/postypes.h \
   /usr/include/c++/13/bits/predefined_ops.h \
   /usr/include/c++/13/bits/ptr_traits.h \
   /usr/include/c++/13/bits/range_access.h \
   /usr/include/c++/13/bits/refwrap.h \
   /usr/include/c++/13/bits/requires_hosted.h \
+  /usr/include/c++/13/bits/shared_ptr.h \
+  /usr/include/c++/13/bits/shared_ptr_atomic.h \
+  /usr/include/c++/13/bits/shared_ptr_base.h \
   /usr/include/c++/13/bits/specfun.h \
   /usr/include/c++/13/bits/std_abs.h \
+  /usr/include/c++/13/bits/std_mutex.h \
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_construct.h \
   /usr/include/c++/13/bits/stl_function.h \
   /usr/include/c++/13/bits/stl_iterator.h \
   /usr/include/c++/13/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/13/bits/stl_iterator_base_types.h \
+  /usr/include/c++/13/bits/stl_map.h \
+  /usr/include/c++/13/bits/stl_multimap.h \
   /usr/include/c++/13/bits/stl_pair.h \
+  /usr/include/c++/13/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/13/bits/stl_tempbuf.h \
+  /usr/include/c++/13/bits/stl_tree.h \
+  /usr/include/c++/13/bits/stl_uninitialized.h \
   /usr/include/c++/13/bits/streambuf.tcc \
   /usr/include/c++/13/bits/streambuf_iterator.h \
   /usr/include/c++/13/bits/string_view.tcc \
   /usr/include/c++/13/bits/stringfwd.h \
+  /usr/include/c++/13/bits/unique_lock.h \
+  /usr/include/c++/13/bits/unique_ptr.h \
   /usr/include/c++/13/bits/uses_allocator.h \
   /usr/include/c++/13/bits/uses_allocator_args.h \
   /usr/include/c++/13/bits/utility.h \
@@ -1263,15 +1326,19 @@ CMakeFiles/interp.dir/src/Scene.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src/Scene
   /usr/include/c++/13/clocale \
   /usr/include/c++/13/cmath \
   /usr/include/c++/13/cstddef \
+  /usr/include/c++/13/cstdint \
   /usr/include/c++/13/cstdio \
   /usr/include/c++/13/cstdlib \
+  /usr/include/c++/13/ctime \
   /usr/include/c++/13/cwchar \
   /usr/include/c++/13/cwctype \
   /usr/include/c++/13/debug/assertions.h \
   /usr/include/c++/13/debug/debug.h \
   /usr/include/c++/13/exception \
+  /usr/include/c++/13/ext/aligned_buffer.h \
   /usr/include/c++/13/ext/alloc_traits.h \
   /usr/include/c++/13/ext/atomicity.h \
+  /usr/include/c++/13/ext/concurrence.h \
   /usr/include/c++/13/ext/numeric_traits.h \
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
@@ -1281,9 +1348,15 @@ CMakeFiles/interp.dir/src/Scene.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src/Scene
   /usr/include/c++/13/iostream \
   /usr/include/c++/13/istream \
   /usr/include/c++/13/limits \
+  /usr/include/c++/13/map \
+  /usr/include/c++/13/memory \
+  /usr/include/c++/13/mutex \
   /usr/include/c++/13/new \
   /usr/include/c++/13/ostream \
+  /usr/include/c++/13/pstl/execution_defs.h \
+  /usr/include/c++/13/pstl/glue_memory_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
+  /usr/include/c++/13/ratio \
   /usr/include/c++/13/stdexcept \
   /usr/include/c++/13/streambuf \
   /usr/include/c++/13/string \
@@ -1315,6 +1388,7 @@ CMakeFiles/interp.dir/src/Scene.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src/Scene
   /usr/include/pthread.h \
   /usr/include/sched.h \
   /usr/include/stdc-predef.h \
+  /usr/include/stdint.h \
   /usr/include/stdio.h \
   /usr/include/stdlib.h \
   /usr/include/time.h \
@@ -1348,6 +1422,8 @@ CMakeFiles/interp.dir/src/Scene.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src/Scene
   /usr/include/x86_64-linux-gnu/bits/select.h \
   /usr/include/x86_64-linux-gnu/bits/setjmp.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
@@ -1407,7 +1483,8 @@ CMakeFiles/interp.dir/src/Scene.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src/Scene
   /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
   /usr/include/x86_64-linux-gnu/sys/types.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
 
 CMakeFiles/interp.dir/src/main.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src/main.cpp \
   /home/jakub/ZMP/mainDir/zalazek/inc/AbstractComChannel.hh \
@@ -1418,6 +1495,7 @@ CMakeFiles/interp.dir/src/main.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src/main.c
   /home/jakub/ZMP/mainDir/zalazek/inc/Configuration.hh \
   /home/jakub/ZMP/mainDir/zalazek/inc/Interpreter.hh \
   /home/jakub/ZMP/mainDir/zalazek/inc/LibInterface.hh \
+  /home/jakub/ZMP/mainDir/zalazek/inc/MobileObj.hh \
   /home/jakub/ZMP/mainDir/zalazek/inc/Port.hh \
   /home/jakub/ZMP/mainDir/zalazek/inc/Scene.hh \
   /home/jakub/ZMP/mainDir/zalazek/inc/Vector3D.hh \
@@ -1427,10 +1505,15 @@ CMakeFiles/interp.dir/src/main.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src/main.c
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
   /usr/include/assert.h \
+  /usr/include/c++/13/backward/auto_ptr.h \
   /usr/include/c++/13/backward/binders.h \
   /usr/include/c++/13/bit \
+  /usr/include/c++/13/bits/align.h \
   /usr/include/c++/13/bits/alloc_traits.h \
+  /usr/include/c++/13/bits/allocated_ptr.h \
   /usr/include/c++/13/bits/allocator.h \
+  /usr/include/c++/13/bits/atomic_base.h \
+  /usr/include/c++/13/bits/atomic_lockfree_defines.h \
   /usr/include/c++/13/bits/basic_ios.h \
   /usr/include/c++/13/bits/basic_ios.tcc \
   /usr/include/c++/13/bits/basic_string.h \
@@ -1472,6 +1555,9 @@ CMakeFiles/interp.dir/src/main.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src/main.c
   /usr/include/c++/13/bits/range_access.h \
   /usr/include/c++/13/bits/refwrap.h \
   /usr/include/c++/13/bits/requires_hosted.h \
+  /usr/include/c++/13/bits/shared_ptr.h \
+  /usr/include/c++/13/bits/shared_ptr_atomic.h \
+  /usr/include/c++/13/bits/shared_ptr_base.h \
   /usr/include/c++/13/bits/specfun.h \
   /usr/include/c++/13/bits/sstream.tcc \
   /usr/include/c++/13/bits/std_abs.h \
@@ -1486,6 +1572,8 @@ CMakeFiles/interp.dir/src/main.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src/main.c
   /usr/include/c++/13/bits/stl_map.h \
   /usr/include/c++/13/bits/stl_multimap.h \
   /usr/include/c++/13/bits/stl_pair.h \
+  /usr/include/c++/13/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/13/bits/stl_tempbuf.h \
   /usr/include/c++/13/bits/stl_tree.h \
   /usr/include/c++/13/bits/stl_uninitialized.h \
   /usr/include/c++/13/bits/stl_vector.h \
@@ -1494,6 +1582,7 @@ CMakeFiles/interp.dir/src/main.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src/main.c
   /usr/include/c++/13/bits/string_view.tcc \
   /usr/include/c++/13/bits/stringfwd.h \
   /usr/include/c++/13/bits/unique_lock.h \
+  /usr/include/c++/13/bits/unique_ptr.h \
   /usr/include/c++/13/bits/uses_allocator.h \
   /usr/include/c++/13/bits/uses_allocator_args.h \
   /usr/include/c++/13/bits/utility.h \
@@ -1516,6 +1605,7 @@ CMakeFiles/interp.dir/src/main.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src/main.c
   /usr/include/c++/13/ext/aligned_buffer.h \
   /usr/include/c++/13/ext/alloc_traits.h \
   /usr/include/c++/13/ext/atomicity.h \
+  /usr/include/c++/13/ext/concurrence.h \
   /usr/include/c++/13/ext/numeric_traits.h \
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
@@ -1526,9 +1616,12 @@ CMakeFiles/interp.dir/src/main.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src/main.c
   /usr/include/c++/13/istream \
   /usr/include/c++/13/limits \
   /usr/include/c++/13/map \
+  /usr/include/c++/13/memory \
   /usr/include/c++/13/mutex \
   /usr/include/c++/13/new \
   /usr/include/c++/13/ostream \
+  /usr/include/c++/13/pstl/execution_defs.h \
+  /usr/include/c++/13/pstl/glue_memory_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/ratio \
   /usr/include/c++/13/sstream \
@@ -2125,30 +2218,6 @@ CMakeFiles/interp.dir/src/xmlinterp.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src/x
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
 
 
-/usr/include/c++/13/pstl/glue_memory_defs.h:
-
-/usr/include/c++/13/pstl/execution_defs.h:
-
-/usr/include/c++/13/memory:
-
-/usr/include/c++/13/ext/concurrence.h:
-
-/usr/include/c++/13/bits/unique_ptr.h:
-
-/usr/include/c++/13/bits/stl_raw_storage_iter.h:
-
-/usr/include/c++/13/bits/shared_ptr_base.h:
-
-/usr/include/c++/13/bits/shared_ptr_atomic.h:
-
-/usr/include/c++/13/bits/shared_ptr.h:
-
-/usr/include/c++/13/bits/atomic_lockfree_defines.h:
-
-/usr/include/c++/13/bits/atomic_base.h:
-
-/usr/include/c++/13/backward/auto_ptr.h:
-
 /home/jakub/ZMP/mainDir/zalazek/src/preprocessor.cpp:
 
 /usr/include/c++/13/sstream:
@@ -2181,27 +2250,57 @@ CMakeFiles/interp.dir/src/xmlinterp.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src/x
 
 /usr/include/c++/13/tr1/hypergeometric.tcc:
 
-/usr/include/c++/13/bits/allocated_ptr.h:
-
-/usr/include/c++/13/tr1/exp_integral.tcc:
-
 /usr/include/c++/13/tr1/ell_integral.tcc:
 
 /usr/include/c++/13/tr1/beta_function.tcc:
 
 /usr/include/c++/13/tr1/bessel_function.tcc:
 
+/usr/include/c++/13/thread:
+
+/usr/include/c++/13/pstl/glue_memory_defs.h:
+
+/usr/include/c++/13/pstl/execution_defs.h:
+
+/usr/include/c++/13/memory:
+
 /usr/include/c++/13/map:
 
+/usr/include/c++/13/ext/concurrence.h:
+
+/usr/include/c++/13/bits/unique_ptr.h:
+
+/usr/include/c++/13/bits/this_thread_sleep.h:
+
 /usr/include/c++/13/bits/stl_tree.h:
+
+/usr/include/c++/13/bits/stl_raw_storage_iter.h:
 
 /usr/include/c++/13/bits/stl_multimap.h:
 
 /usr/include/c++/13/bits/specfun.h:
 
+/usr/include/c++/13/bits/shared_ptr_base.h:
+
+/usr/include/c++/13/bits/shared_ptr_atomic.h:
+
+/usr/include/c++/13/bits/shared_ptr.h:
+
 /usr/include/c++/13/bits/erase_if.h:
 
+/usr/include/c++/13/bits/atomic_lockfree_defines.h:
+
+/usr/include/c++/13/bits/atomic_base.h:
+
+/usr/include/c++/13/tr1/exp_integral.tcc:
+
+/usr/include/c++/13/bits/allocated_ptr.h:
+
+/usr/include/c++/13/backward/auto_ptr.h:
+
 /home/jakub/ZMP/mainDir/zalazek/inc/Vector3D.hh:
+
+/home/jakub/ZMP/mainDir/zalazek/inc/MobileObj.hh:
 
 /home/jakub/ZMP/mainDir/zalazek/inc/LibInterface.hh:
 
@@ -2404,6 +2503,8 @@ CMakeFiles/interp.dir/src/xmlinterp.cpp.o: /home/jakub/ZMP/mainDir/zalazek/src/x
 /usr/include/c++/13/pstl/pstl_config.h:
 
 /usr/include/xercesc/util/XMLFileMgr.hpp:
+
+/usr/include/c++/13/bits/std_thread.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
 

@@ -4,6 +4,10 @@
 #define SCENE_HH
 
 #include "AbstractScene.hh"
+#include "MobileObj.hh"
+#include <map>
+#include <string>
+#include <memory> 
 
 /*!
  * \brief Atrapa klasy sceny.
@@ -15,6 +19,10 @@
  * zarządzanie kolekcją obiektów mobilnych.
  */
 class Scene : public AbstractScene {
+private:
+    std::map<std::string, std::shared_ptr<MobileObj>> _ObjectMap;
+    std::mutex _ScnMutex;
+
 public:
     /*!
      * \brief Konstruktor domyślny.
@@ -28,10 +36,10 @@ public:
     AbstractMobileObj* FindMobileObj(const char *sName) override;
 
     /*!
-     * \brief Dodaje nowy obiekt mobilny do sceny.
-     *        W tej implementacji nic nie robi.
+     * \brief Dodaje nowy obiekt mobilny do sceny za pomocą shared_ptr.
+     *
      */
-    void AddMobileObj(AbstractMobileObj *pMobObj) override;
+    void AddMobileObj(std::shared_ptr<AbstractMobileObj> pMobObj) override;
 };
 
 #endif

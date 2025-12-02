@@ -4,6 +4,7 @@
 #include <sstream>
 #include <unistd.h> 
 #include "ComChannel.hh"
+#include "MobileObj.hh"
 
 
 using std::cout;

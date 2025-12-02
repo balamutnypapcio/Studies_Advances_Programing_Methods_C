@@ -1,0 +1,31 @@
+Niniejsze oprogramowanie dostępne jest na licencji GNU-GPL.
+Zostało ono przygotowane do tego, aby współpracować z wersją Qt5 i Qt6.
+Jednak dołączony pakiet libQGLViewer poprawnie instaluje się tylko z Qt6.
+
+Ponadto wymagne jest zainstalowanie dodatkowych pakietów, o ile
+nie były wcześniej już zainstalowane.
+Należy do nich biblioteka:
+
+ -  SOIL (pakiety: libsoil-dev, libsoil1)
+oraz pakiet:
+  - libglu1-mesa-dev oraz pakiety, od których jest on zależny.
+   Wykorzystują program graficzny synaptic, po zaznaczeniu wspomnianego
+   pakietu, te pakiety, od których jest zależny, zostaną zaznaczone
+   automatycznie.
+
+Ponadto w niniejszym pakiecie wykorzystana jest biblioteka libQGLViewer.
+Dostępna jest ona w repozytorium:
+  https://github.com/GillesDebunne/libQGLViewer
+Dla wygody źródła biblioteki zostały umieszczone w niniejszym pakiecie
+(data pobranie 11.11.2024). Kompilacja biblioteki została zintegrowana
+z kompilacją źródeł samego serwera.
+
+Kompilację i konsolidację programu można zrealizować z wykorzystaniem
+programu cmake. Postępowanie jest standardowe właściwe dla tego
+narzędzia.
+
+Chcąc zmienić tło i podać inny plik można usunąć link symboliczny
+serwer_zrodla/background.png i w to miejsce umieścić własny plik w formacie
+PNG pod tą samą nazwą jak wcześniejszy link.
+
+Numer portu komunikacyjnego znajduje się w pliku: serwer_zrodla/inc/gsv-Const.h

@@ -27,7 +27,7 @@ class Interp4Move: public AbstractInterp4Command {
    *  Ponieżej zdefiniowane jest tylko jedno pole jako przykład.
    */
   double  _Speed_mmS;
-  unsigned long long _Distance_mm;
+  double _Distance_mm;
  public:
   /*!
    * \brief

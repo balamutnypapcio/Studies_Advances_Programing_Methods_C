@@ -4,6 +4,7 @@
 #include <sstream>
 #include <unistd.h> 
 #include "ComChannel.hh"
+#include "MobileObj.hh"
 
 
 using std::cout;
@@ -32,7 +33,7 @@ AbstractInterp4Command* CreateCmd(void)
 /*!
  *
  */
-Interp4Move::Interp4Move(): _Speed_mmS(0), _Distance_mm(100)
+Interp4Move::Interp4Move(): _Speed_mmS(0.0), _Distance_mm(0.0)
 {}
 
 
@@ -61,25 +62,33 @@ const char* Interp4Move::GetCmdName() const
  *
  */
 bool Interp4Move::ExecCmd(AbstractScene &rScn, const char *sMobObjName, AbstractComChannel &rComChann) {
+  
     if (_Distance_mm < 0) {
         std::cerr << "Blad: Dlugosc drogi musi byc nieujemna!" << std::endl;
         return false;
     }
-    
-    double totalTime = _Distance_mm / std::abs(_Speed_mmS);
-    const double timeStep = 0.1;
-    int steps = static_cast<int>(totalTime / timeStep);
-    double stepDistance = (_Speed_mmS > 0 ? _Distance_mm : -_Distance_mm) / steps;
-    
-    for (int i = 1; i <= steps; ++i) {
-        std::stringstream cmd;
-        cmd << "UpdateObj Name=" << sMobObjName
-            << " Trans_m=(" << stepDistance * i << ",0,0)\n";
-        
-        rComChann.Send(cmd.str());
-        usleep(static_cast<int>(timeStep * 1000000));
+    MobileObj* pObj = static_cast<MobileObj*>(rScn.FindMobileObj(sMobObjName));
+    if (!pObj) {
+        std::cerr << "Blad: Nie znaleziono obiektu '" << sMobObjName << "' na scenie." << std::endl;
+        return false;
     }
     
+    const double DURATION_S = _Distance_mm / std::abs(_Speed_mmS);
+    const int NUM_FRAMES = 100;
+    const unsigned int FRAME_DELAY_US = (DURATION_S / NUM_FRAMES) * 1000000;
+    double step_dist = (static_cast<double>(_Distance_mm) / NUM_FRAMES) * (_Speed_mmS > 0 ? 1 : -1);
+    double distance_covered = 0.0;
+
+    for (int i = 0; i < NUM_FRAMES; ++i) {    
+        pObj->Lock();
+        distance_covered += step_dist;
+        std::stringstream cmd;
+        cmd << "UpdateObj Name=" << sMobObjName << " Trans_m=(" << distance_covered << ",0,0)\n";
+        rComChann.Send(cmd.str());
+        pObj->Unlock();
+        std::cout<<"i"<<std::endl;
+        usleep(FRAME_DELAY_US);
+    }
     return true;
 }
 
