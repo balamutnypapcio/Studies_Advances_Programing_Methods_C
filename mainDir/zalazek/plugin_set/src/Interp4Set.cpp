@@ -63,14 +63,27 @@ bool Interp4Set::ExecCmd(AbstractScene &rScn, const char *sMobObjName, AbstractC
         std::cerr << "Blad: Nie znaleziono obiektu '" << sMobObjName << "' na scenie." << std::endl;
         return false;
     }
+    pObj->Lock();
 
+    // AKTUALIZACJA LOKALNEGO OBIEKTU
+    Vector3D new_pos;
+    new_pos[0] = _Position[0];
+    new_pos[1] = _Position[1];
+    new_pos[2] = _Position[2];
+    pObj->SetPosition_m(new_pos);
+    
+    pObj->SetAng_Yaw_deg(_Orientation[0]);
+    pObj->SetAng_Pitch_deg(_Orientation[1]);
+    pObj->SetAng_Roll_deg(_Orientation[2]);
+
+    // WYSYŁANIE DO SERWERA
     std::stringstream cmd;
     cmd << "UpdateObj Name=" << sMobObjName 
         << " Trans_m=(" << _Position[0] << "," << _Position[1] << "," << _Position[2] << ")"
         << " RotXYZ_deg=(" << _Orientation[0] << "," << _Orientation[1] << "," << _Orientation[2] << ")\n";
-    pObj->Lock();
     rComChann.Send(cmd.str());
     pObj->Unlock();
+
     return true;
 }
 

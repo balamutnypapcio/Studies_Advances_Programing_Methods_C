@@ -5,12 +5,17 @@ Begin_Parallel_Actions
   //Set Podstawa 5 5 1 0 0 0
   Move Podstawa 1.0 4.0
   Pause 1000
-  Set Podstawa 10 10 2 0 0 0
+  
   Rotate Podstawa OX 45 180
 End_Parallel_Actions
 
+Begin_Parallel_Actions
+Set Podstawa 3 3 2 0 0 0
+End_Parallel_Actions
 
 Begin_Parallel_Actions
 Move Podstawa -1.0 4.0
 Rotate Podstawa OX -45 180
 End_Parallel_Actions
+
+
