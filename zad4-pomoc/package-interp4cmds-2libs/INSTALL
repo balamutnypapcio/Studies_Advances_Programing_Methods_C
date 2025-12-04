@@ -1,0 +1,38 @@
+Aby zainstalować aplikację należy najpierw rozpakować pakiet:
+
+  tar xzf interp4cmds-1.0.tar.gz
+
+Zostanie utworzony katalog "interp4cmds-1.0". Należy przejść
+do niego:
+
+  cd interp4cmds-1.0
+
+Następnie uruchamiamy skrypt konfiguracyjny ze wskazaniem
+docelowego katalogu, w którym mają być utworzone odpowiednie
+podkatalogi, a następnie zainstalowany zbudowany program wraz
+z wtyczkami. Proponuje się, aby próbnej instalacji dokonać
+gdzieś w katalogu /tmp, np.
+
+  ./configure --prefix=/tmp/zamp
+
+W takim przypadku po przejściu do etapu instalacji zostaną
+utworzone podkatalogi bin i lib.
+W następnym kroku wykonujemy kompilację i konsolidację
+programu oraz wtyczek wywołując polecenie make:
+
+  make
+
+Kolejnym krokiem jest instalacja. W tym przypadku nie wymaga
+ona praw administratora. Wykonujemy ją poprzez wywołanie
+programu make z celem install, tzn.
+
+  make install
+
+Gdy wszystko zakończyło się poprawnie, zainstalowany program
+można wywołać poleceniem:
+
+  /tmp/zamp/bin/interp4cmds
+
+
+
+  

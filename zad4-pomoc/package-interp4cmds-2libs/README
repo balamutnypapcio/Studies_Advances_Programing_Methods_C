@@ -1,0 +1,201 @@
+#############################################################################
+#
+# Spis tresci
+#   0. Ogolnie
+#   1. Drzewo plikow dla tego przykladu
+#   2. Tworzenie pakietu instalacyjnego
+#   3. Probna instalacja pakietu (weryfikacja)
+#   4. Tworzenie wlasnego pakietu na podstawie dostarczonego przykladu
+#
+
+
+
+
+#############################################################################
+#
+# 0. Ogolnie
+#
+
+W tym przykladzie pokazana jest struktura plikow konfiguracyjnych
+dla pakietu instalacyjnego tworzacego program i biblioteke dynamicznie
+konsolidowana.
+
+Podstawowe cechy budowy pakietu:
+
+ - pliki naglowkowe sa w innym katalogu niz pliki zrodlowe,
+ - sprawdzane jest istnienie w systemie biblioteki xerces-c (patrz ./configure.ac)
+ - sprawdzane jest czy nalezy program konsolidowac z osobna biblioteka dl,
+   czy tez funkcje dlopen, dlsym itp. dostepne sa w bibliotece systemowej.
+ - tworzona jest biblioteka dynamicznie ladowalna libtool.so 
+
+
+
+#############################################################################
+#
+# 1. Drzewo plikow dla tego przykladu
+#
+
+ *
+ |
+ +- README 
+ |
+ +- Makefile.am
+ |
+ +- configure.ac
+ |
+ +- inc/ -+- Makefile.am
+ |        |
+ |        +- modul1.hh
+ |        |
+ |        +- modul2.hh
+ |        |
+ |        +- wspolny_plik.hh
+ |
+ +- src/ -+- Makefile.am
+ |        |
+ |        +- main.cpp
+ |        |
+ |        +- modul1.cpp
+ |        |
+ |        +- modul2.cpp
+ |
+ +- src-lib/ -+- Makefile.am
+              |
+              +- tool1.cpp
+	      |
+	      +- tool2.cpp
+
+
+#############################################################################
+#
+# 2. Tworzenie pakietu instalacyjnego
+#
+
+ Aby utworzyc pakiet instalacyjny nalez przejsc do katalogu dostarczonego 
+ przykladu i wykonac nasptepujace operacje:
+
+
+1.  libtoolize
+
+    - tworzy pomocnicze makra i skryptu dla libtool, narzedzia, ktore
+      wykorzystywane jest do budowy bibliotek dynamicznie konsolidowanych.
+
+2.   autoreconf --install
+
+    - powoduje zainstalowanie niezbednych skryptow oraz utworzenie
+      plikow Makefile.in
+
+3.   ./configure
+
+    - powoduje utworzenie plikow Makefile
+
+4.   make
+
+    -  powoduje przeprowadzenie kompilacji.  W jej wyniku w katalogu
+       src/ znadzie sie wlasciwy program src/interp4cmds.
+
+5.  make distcheck
+
+    - umozliwia sprawdzenie czy mozna utworzyc wlasciwy pakiet instalacyjny.
+      Jezeli wszystko jest dobrze, to ...
+
+================================================
+interp4cmds-1.0 archives ready for distribution: 
+interp4cmds-1.0.tar.gz
+================================================
+
+
+6.  make dist
+
+    - tworzy wlasciwy pakiet instalacyjny interp4cmds-1.0.tar.gz
+
+
+#############################################################################
+#
+# 3. Probna instalacja pakietu (weryfikacja)
+#
+
+
+Schemat probnej instalacji pakietu:
+
+    tar -xzf interp4cmds-1.0.tar.gz
+    cd interp4cmds-1.0
+    ./configure --prefix=${HOME}/test
+    make
+    make install
+
+ Dla testu mozna uruchomic program:
+   ~/test/bin/interp4cmds
+
+ UWAGA: Program chociaz laduje biblioteke w trakcie swojego dzialania,
+        to jednak nie wymaga dodatkowego ustawienie zmiennej srodowiskowej
+        LD_LIBRARY_PATH  (Dlaczego tak jest?)
+
+#############################################################################
+#
+# 4. Tworzenie wlasnego pakietu na podstawie dostarczonego przykladu
+#
+
+ 0. Najpier nalezy wykonac polecenie:
+      make clean
+
+ 1. Nalezy do podkartoteki src/ przekopiowac pliki zrodlowe programu.
+
+ 2. W pliku src/Makefile.am nalezy dopisac zrodla wlasnych modulow
+    (Uwaga: nalezy pamietac o znaku kontynuacji linii, jesli nazwy sa pisane
+     w kilku liniach) i usnac nazwy przykladowych modulow: 
+                                         main.cpp, module1.cpp, module2.cpp.
+
+    Chcąc ułatwić sobie tworzenie takiej listy można przejść do katalogu,
+    w ktorym są pliki i wykonac polecenie:
+      ls -1 *.cpp | sed 's/$/ \\/' > /tmp/lista_plikow.txt
+
+    Nastepnie zawartosc listy nalezy odpowiednio przekopiowac do pliku Makefile.am.
+    Uwaga: trzeba pamietac, aby w ostatniej linii usunac z jej konca znak '\'.
+
+    Mozna tez wykonac polecenie bez przekierowywania strumienia, tzn.
+      ls -1 *.cpp | sed 's/$/ \\/'
+      
+    i przekopiowac z okienka terminalu.
+
+ 3. Do podkartoteki inc/ nalezy przekopiowac pliki naglowkowe programu
+    i plugin'ow, tzn. bibliotek wspoldzielonych.
+
+ 4. W pliku inc/Makefile.am nalezy dopisac nazwy plikow naglowkowych 
+    i usunac nazwy przykladow: module1.hh i module2.hh
+
+ 5. Do podkartoteki src-lib/ nalezy przekopiowac pliku zrodlowe plugin'ow
+    (bibliotek wspoldzielonych).
+
+ 6. W pliku src-lib/Makefile.am, tak jak to juz bylo robione wczesniej w przypadku
+    plikow naglowkowych, nalezy dopisac nazwy plikow zrodlowych bibliotek
+    i usunac nazwy przykladowych bibliotek tzn. libtool1.la i libtool2.la.
+
+    Nalezy pamietac, ze sekcje zwiazane z dana biblioteka, np. libtool1.la,
+    sa identyfikowane przez przedrostek libtool1_la.
+    Tak wiec wprowadzajac opis zrodel i parametrow kompilacji, np. dla
+    biblioteki libInterp4Move.so, nalezy zmienic sekcje, np. libtool1.la, tzn.
+
+     lib_LTLIBRARIES = libtool1.la ...
+
+     libtool1_la_SOURCES = tool1.cpp
+     libtool1_la_CXXFLAGS = -I../inc -I../../../inc -std=c++17
+     libtool1_la_LDFLAGS = -module -version-info 1:0:0
+
+    odpowiednio na:
+
+     lib_LTLIBRARIES = libInterp4Move.la ...
+
+     libInterp4Move_la_SOURCES = Interp4Move.cpp
+     libInterp4Move_la_CXXFLAGS = -I../inc -I../../../inc -std=c++17
+     libInterp4Move_la_LDFLAGS = -module -version-info 1:0:0
+
+ 7. Po wprowadzonych zmianach nalezy uruchomic nastepujace polecenia
+
+    1 ->  autoreconf       # bez opcji --install, nie uruchamiamy juz libtoolize
+    2 ->  ./configure
+    3 ->  make
+    4 ->  make distcheck
+
+    Jesli dokonamy ponownie nowych zmian, to wracamy do kroku 1.,
+    tzn. uruchonienie autoreconf.

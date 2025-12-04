@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC  -Wall -pedantic -shared -Wl,-soname,libInterp4Move.so -o ../libs/libInterp4Move.so CMakeFiles/Interp4Move.dir/src/Interp4Move.cpp.o 
