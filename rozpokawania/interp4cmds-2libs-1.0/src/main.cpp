@@ -99,10 +99,9 @@ int main(int argc, char* argv[])
     
     const vector<string>& lib_names = config.GetPluginLibs();
     for (const string& lib_name : lib_names) {
-        string lib_path = "libs/" + lib_name;
-        cout << "  Proba ladowania: " << lib_path<< endl;
+        cout << "  Proba ladowania: " << lib_name << endl;
         
-        LibInterface* pLib = new LibInterface(lib_path.c_str());
+        LibInterface* pLib = new LibInterface(lib_name.c_str());
 
         if (pLib->IsValid()) {
             Plugins[pLib->GetCmdName()] = pLib;
